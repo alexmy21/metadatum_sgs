@@ -1,0 +1,16 @@
+[redis]
+    host = "localhost"
+    port = 6379
+
+[indices]
+    dir_core = "schemas/core"
+    dir_user = "schemas/user"
+    registry = "schemas/core/schemas/registry.yaml"
+
+[scripts]
+    dir_scripts = "scripts"
+
+[commit]
+    committer_name = "Alex Mylnikov"
+    committer_email = "alexmy@lisa-park.com"
+    

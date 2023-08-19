@@ -1,0 +1,30 @@
+{
+  "label": { "type": "string", "default": "COMMIT" },
+  "name": { "type": "string", "default": "commit" },
+  "namespace": { "type": "string", "default": "core_schemas" },
+  "prefix": { "type": "string", "default": "commit" },
+  "kind": { "type": "string", "default": "node" },
+
+  "keys":
+    {
+      "required": True,
+      "type": "list",
+      "default": ["timestamp", "committer_name", "committer_email"],
+    },
+    
+  "props": 
+    { 
+      "required": True, 
+      "type": "dict", 
+      "schema": 
+        {
+          "__id": { "type": "string", "default": "str" },
+          "timestamp": { "type": "string", "default": "str" },
+          "committer_name": { "type": "string", "default": "str" },
+          "committer_email": { "type": "string", "default": "str" },
+          "doc": { "type": "string", "default": "str" },
+          "commit_id": { "type": "string", "default": "und"},
+          "commit_status": { "type": "string", "default": "und"}
+        } 
+    },
+}

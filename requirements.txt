@@ -1,0 +1,16 @@
+anyio
+async-timeout
+Cerberus
+click
+h11==0.14.0
+idna==3.4
+numpy
+polars
+PyYAML
+redis
+sniffio
+starlette
+uvicorn
+cymple
+dynaconf
+textract==1.6.5

@@ -1,0 +1,37 @@
+{
+  "label": { "type": "string", "default": "COMMIT_TAIL" },
+  "name": { "type": "string", "default": "commit_tail" },
+  "namespace": { "type": "string", "default": "core_schemas" },
+  "prefix": { "type": "string", "default": "commit_tail" },
+  "kind": { "type": "string", "default": "node" },
+
+  # This is the list of keys that will be used to create the index
+  # if list is empty then uuid would be used to create SHA1 hashs
+  "keys":
+    {
+      "type": "list",
+      "required": True,
+      "default": [],
+    },
+
+  "props": 
+    { 
+        "required": True, 
+        "type": "dict", 
+        "schema": {
+          # This is tail id for the commit_tail instance it should be UUID
+          # We cannot use id based on
+          "__id": { "type": "string", "default": "str" },
+          "item_prefix": { "type": "string", "default": "str" },
+          # This is the head id (normalized original id) for the commit_tail instance
+          "item_id": { "type": "string", "default": "str" },
+          # Reference to commit
+          "commit_id": { "type": "string", "default": "str" },
+          # Timestamp of the commit 
+          "timestamp": { "type": "string", "default": " " },
+          "commit_status": { "type": "string", "default": "und"},
+          # optional extra docs
+          "doc": { "type": "string", "default": " " }
+        } 
+    },
+}
