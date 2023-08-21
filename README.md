@@ -4,7 +4,7 @@ This is a demo application of metadatum self generative systems platform (SGS) b
 
 https://medium.com/@alexmy_29874/introduction-to-metadata-graphs-and-self-generative-systems-sgs-574ebd45be91
 
-SGS is a platform for building self generative systems. It is a framework for building applications that can change their own structure and behavior at runtime. 
+SGS is a framework for building applications that can change their own structure and behavior at runtime. 
 
 This is still work in progress, so, the documentation is not ready yet and available as a draft only.
 
@@ -77,6 +77,8 @@ or
 ```
 docker run -p 6379:6379 --name redis-7.0 -it --rm redis/redis-stack:7.0.0-RC4
 ```
+
+We also suggest to run redisinsight to monitor redis database. 
 
 Application depends on the system variable DYNACONF_DOT_META. This variable should point to the directory where the configuration files are located. 
 
