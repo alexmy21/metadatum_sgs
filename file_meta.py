@@ -15,39 +15,20 @@ from metadatum.bootstrap import Bootstrap
 utl.importConfig()
 import config as cnf
 
-def digestIndex(r: redis.Redis, cnf_settings, schema_file:str, processor_ref:str):     
-
-        dir = cnf.settings.dot_meta
-        cmd = Commands()
-        idx_file = os.path.join(dir, cnf_settings, schema_file)
-        '''
-            createUserIndex command is idempotent. We can run it to get latest version of the index schema
-            or create index if it doesn't exist.
-        '''
-        reg, idx, schema_sha_id = cmd.createUserIndex(r, idx_file, processor_ref)
-
-        cmd.parseDocument(r, 'registry' + schema_sha_id, idx_file)
-
-        return reg, idx, schema_sha_id
-
 
 def run(props: dict = None):                     
-        '''
-            Bootstrap ensures that the registry index and all core indices exist.
-            boot() command is idempotent. It will create indices if they don't exist.
-        '''
-        boot = Bootstrap()
-        b_reg, b_idx, b_sha_id = boot.boot()
+       
         pool = redis.ConnectionPool(host=cnf.settings.redis.host, port = cnf.settings.redis.port, db = 0)
         r = redis.Redis(connection_pool = pool)
         cmd = Commands()
 
-        reg, idx, schema_sha_id = digestIndex(r, cnf.settings.indices.dir_user, 'schemas/file.yaml', 'file_meta')
+        reg, idx, schema_sha_id = cmd.buildIndex(r, cnf.settings.indices.dir_user, 'schemas/file.yaml', 'file_meta')
 
         key_list = idx.get(voc.KEYS)
 
         # list all files with ext in directory
         file_list = utl.listAllFiles(props.get('dir'), props.get('file_type'))
+
         # Process each file
         for file in file_list:
             print(file)

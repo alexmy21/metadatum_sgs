@@ -21,11 +21,8 @@ def run(props: dict = None):
         rs = redis.Redis(connection_pool = pool)
 
         cmd = Commands()
-
         query = props.get('query')
-
         print(query)
-
         results = cmd.search(rs, voc.BIG_IDX, query, props.get('limit'))
 
         t_set = set()
@@ -34,8 +31,6 @@ def run(props: dict = None):
             bi_ref_id = utl.fullId(voc.BI_REF, sha_id)
             t_set= t_set.union(rs.smembers(bi_ref_id))
 
-        # print('t_set: ', t_set)
-        
         if len(t_set) == 0:
             return props
         else:
@@ -45,10 +40,9 @@ def run(props: dict = None):
                 item_sha_id = utl.getIdShaPart(t_str)
 
                 item_hash = rs.hgetall(utl.denormId(t_str))
-                # print('\n===============================item_hash: ', item_hash)
-                url = str(item_hash.get(b'url').decode('utf-8')) #.decode('utf-8')
-                schema_id = str(item_hash.get(b'schema_id').decode('utf-8')) #.decode('utf-8')
-
+                # print('\n===============================\nitem_hash: ', item_hash)
+                url = str(item_hash.get(b'url').decode('utf-8')) 
+                schema_id = str(item_hash.get(b'schema_id').decode('utf-8')) 
                 cmd.txCreate(rs, 'load_search', schema_id, item_sha_id, item_prefix, url, voc.WAITING) 
 
         return props

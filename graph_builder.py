@@ -21,44 +21,14 @@ import config as cnf
     in Redisearch. We are using RedisGraph to build graph of the resources.
 '''
 
-def digestIndex(r: redis.Redis, cnf_settings, schema_file:str, processor_ref:str):     
-
-        dir = cnf.settings.dot_meta
-        cmd = Commands()
-        idx_file = os.path.join(dir, cnf_settings, schema_file)
-        '''
-            createUserIndex command is idempotent. We can run it to get latest version of the index schema
-            or create index if it doesn't exist.
-        '''
-        reg, idx, schema_sha_id = cmd.createUserIndex(r, idx_file, processor_ref)
-
-        cmd.parseDocument(r, 'registry' + schema_sha_id, idx_file)
-
-        return reg, idx, schema_sha_id
-
-
 def run(t_list:list = None, props:dict = None) -> dict|None:
-
-    # print(t_list, props)
 
     pool = redis.ConnectionPool(host=cnf.settings.redis.host, port = cnf.settings.redis.port, db = 0)
     rs = redis.Redis(connection_pool = pool)
     cmd = Commands()
 
-    reg, idx, schema_sha_id = digestIndex(rs, cnf.settings.indices.dir_core, 'schemas/edge.yaml', 'graph_builder')
-
-    # dir = cnf.settings.dot_meta
-    # cmd = Commands()
-    # idx_file = os.path.join(dir, cnf.settings.indices.dir_core, 'schemas/edge.yaml')
-    # '''
-    #     createUserIndex command is idempotent. We can run it to get latest version of the index schema
-    #     or create index if it doesn't exist.
-    # '''
-    # reg, idx, schema_sha_id = cmd.createUserIndex(rs, idx_file, 'graph_builder')
-    # # print('\n', reg, '\n', idx, '\n', schema_sha_id)
-
-    # cmd.parseDocument(rs, 'registry' + schema_sha_id, idx_file)
-
+    reg, idx, schema_sha_id = cmd.buildIndex(rs, cnf.settings.indices.dir_core, 'schemas/edge.yaml', 'graph_builder')
+   
     if t_list == None or len(t_list) == 0:
         return {'result':'ERROR', 'message':'No files to process'}   
     
@@ -75,6 +45,8 @@ def run(t_list:list = None, props:dict = None) -> dict|None:
             graph.delete()
 
     args = []
+
+    # Create nodes and add nodes to the graph
     for t_doc in t_list:        
         args.append(utl.normId(t_doc.id))
         '''
