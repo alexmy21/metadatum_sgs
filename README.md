@@ -8,49 +8,29 @@ This is still work in progress, so, the documentation is not ready yet and avail
 
 Metadatum application is a collection of user defined processors. As everything else in SGS, user defined processors are entities and as entities they are defined by schema. It means that each processor has its own index where it keeps history of all executions.
 
-'''
+```
 ├── schemas
-
 │   ├── core
-
 │   │   └── schemas
-
 │   │       ├── big_idx.yaml
-
 │   │       ├── commit_tail.yaml
-
 │   │       ├── commit.yaml
-
 │   │       ├── edge.yaml
-
 │   │       ├── logging.yaml
-
 │   │       ├── registry.yaml
-
 │   │       └── transaction.yaml
-
 │   └── user
-
 │       ├── proc_schemas
-
 │       │   ├── file_ingest.yaml
-
 │       │   ├── file_meta.yaml
-
 │       │   ├── graph_builder.yaml
-
 │       │   ├── load_search.yaml
-
 │       │   └── summary.yaml
-
 │       └── schemas
-
 │           └── file.yaml
-
 └── scripts
-
     └── metadatum_lib.lua
-'''
+```
 
 ## Installation
 
@@ -80,19 +60,19 @@ This is a web based application that works with redis database. To run the appli
 
 ```
 podman run -p 6379:6379 --name redis-7.0 -it --rm redis/redis-stack:7.0.0-RC4
-'''
+```
 
 or
 
-'''
+```
 docker run -p 6379:6379 --name redis-7.0 -it --rm redis/redis-stack:7.0.0-RC4
-'''
+```
 
 Application depends on the system variable DYNACONF_DOT_META. This variable should point to the directory where the configuration files are located. 
 
 ```
 export DYNACONF_DOT_META=/<abs path to project>/metadatum_sgs/.meta
-'''
+```
 
 Then you should run the web server. You can do it by running the following command:
 
@@ -104,13 +84,13 @@ We are using uvicorn as a web server. It is a lightning-fast ASGI server impleme
 
 Running processors using postman:
 
-'''
+```
 POST http://127.0.0.1:8000/post
-'''
+```
 
 First we should run file_meta processor. It collects metadata from pdf files in specified directory and stores it in the database. To run it, you should send the following request:
 
-'''
+```
 {
     "label": "SOURCE",
     "name": "file_meta",
@@ -123,11 +103,11 @@ First we should run file_meta processor. It collects metadata from pdf files in 
         "file_type": ".pdf"
     }
 }
-'''
+```
 
 Then we should run file_ingest processor. It ingests pdf files from specified directory and stores them in the database. To run it, you should send the following request:
 
-'''
+```
 {
     "label": "COMPLETE",
     "name": "file_ingest",
@@ -141,11 +121,11 @@ Then we should run file_ingest processor. It ingests pdf files from specified di
         "limit": 20
     }
 }
-'''
+```
 
 Then we should run load_search processor. It loads the graph into the search engine. To run it, you should send the following request:
 
-'''
+```
 {
     "label": "SOURCE",
     "name": "load_search",
@@ -159,11 +139,11 @@ Then we should run load_search processor. It loads the graph into the search eng
         "limit": 20
     }
 }
-'''
+```
 
 Then we should run graph_builder processor. It builds a graph of pdf files and their metadata. To run it, you should send the following request:
 
-'''
+```
 {
     "label": "BATCH_TRANSFORM",
     "name": "graph_builder",
@@ -183,11 +163,11 @@ Then we should run graph_builder processor. It builds a graph of pdf files and t
         "limit": 20
     }
 }
-'''
+```
 
 Then we should run summary processor. It generates summaries for pdf files. To run it, you should send the following request:
 
-'''
+```
 {
     "label": "BATCH_TRANSFORM",
     "name": "summary",
@@ -201,5 +181,6 @@ Then we should run summary processor. It generates summaries for pdf files. To r
         "limit": 20
     }
 }
-'''
+```
+
 
