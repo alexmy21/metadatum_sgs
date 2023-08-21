@@ -10,25 +10,45 @@ Metadatum application is a collection of user defined processors. As everything 
 
 '''
 ├── schemas
+
 │   ├── core
+
 │   │   └── schemas
+
 │   │       ├── big_idx.yaml
+
 │   │       ├── commit_tail.yaml
+
 │   │       ├── commit.yaml
+
 │   │       ├── edge.yaml
+
 │   │       ├── logging.yaml
+
 │   │       ├── registry.yaml
+
 │   │       └── transaction.yaml
+
 │   └── user
+
 │       ├── proc_schemas
+
 │       │   ├── file_ingest.yaml
+
 │       │   ├── file_meta.yaml
+
 │       │   ├── graph_builder.yaml
+
 │       │   ├── load_search.yaml
+
 │       │   └── summary.yaml
+
 │       └── schemas
+
 │           └── file.yaml
+
 └── scripts
+
     └── metadatum_lib.lua
 '''
 
@@ -61,7 +81,9 @@ This is a web based application that works with redis database. To run the appli
 ```
 podman run -p 6379:6379 --name redis-7.0 -it --rm redis/redis-stack:7.0.0-RC4
 '''
+
 or
+
 '''
 docker run -p 6379:6379 --name redis-7.0 -it --rm redis/redis-stack:7.0.0-RC4
 '''
@@ -85,6 +107,7 @@ Running processors using postman:
 '''
 POST http://127.0.0.1:8000/post
 '''
+
 First we should run file_meta processor. It collects metadata from pdf files in specified directory and stores it in the database. To run it, you should send the following request:
 
 '''
