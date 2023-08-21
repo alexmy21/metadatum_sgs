@@ -1,8 +1,10 @@
 # metadatum_sgs
 
-This is a demo application of metadatum self generative systems platform (SGS). SGS is a platform for building self generative systems. It is  a framework for building applications that can change their own structure and behavior at runtime. 
-You can find introduction into John von Neumann's self-reproducing automata in the following article: 
+This is a demo application of metadatum self generative systems platform (SGS) built on John von Neumann's concept for the self-reproducing automata. You can find more intormation in the following article: 
+
 https://medium.com/@alexmy_29874/introduction-to-metadata-graphs-and-self-generative-systems-sgs-574ebd45be91
+
+SGS is a platform for building self generative systems. It is a framework for building applications that can change their own structure and behavior at runtime. 
 
 This is still work in progress, so, the documentation is not ready yet and available as a draft only.
 
