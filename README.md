@@ -34,15 +34,23 @@ Metadatum application is a collection of user defined processors. As everything 
 
 ## Installation
 
-This project is a PoC and is not available on PyPI. To install it, you first should install dependencies from requirements.txt file:
+This project is a PoC and is not available on PyPI yet. To install it, you first should install dependencies from requirements.txt file:
 
 ```
 pip install -r requirements.txt
 ```
 
-File requirements.txt doesn't include metadatum package and dependencies related to the summary.py processor. This processor can be used as a template for implementation of user defined processors working with transformer's based LLM. 
+File requirements.txt doesn't include metadatum package (it is on test.pypi.org) and dependencies related to the summary.py processor. The purpose of this processor is to be a template for implementation of user defined processors working with transformer's based LLM. So, we didn't include its dependencies in the requirements.txt file. 
 
-In our case we are using PyTorch based transformers, so, you should install PyTorch and transformers packages. To install PyTorch, please, follow instructions on https://pytorch.org/get-started/locally/. To install transformers, please, run the following command:
+In our case we are using PyTorch based transformers, so, you should install PyTorch and transformers packages. To install PyTorch, please, follow instructions on https://pytorch.org/get-started/locally/. 
+
+We used the following command to install PyTorch:
+
+```
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+```
+
+To install transformers, please, run the following command:
 
 ```
 pip install transformers
