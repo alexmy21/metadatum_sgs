@@ -183,4 +183,4 @@ Then we should run summary processor. It generates summaries for pdf files. To r
 }
 ```
 
-
+PS. Definitely you should replace all hardcoded paths and references with the references to you file location.
